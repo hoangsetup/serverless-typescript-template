@@ -1,0 +1,47 @@
+# Title of your project
+service: typescript-serverless-framework-template
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: eu-central-1
+  # This is the S3 bucket where the Lambda source .zips will be saved to.
+  deploymentBucket: example.lambdas.${opt:stage}
+  # we can use these with process.env.ARG_NAME from js
+  environment:
+    STAGE: ${opt:stage}
+
+
+# These are variables which can be
+# referenced in other parts of the yml.
+custom:
+  functionPrefix: example_lambdas_${opt:stage}_
+
+plugins:
+  - serverless-offline
+
+resources:
+  Resources:
+    GatewayResponseDefault4XX:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: DEFAULT_4XX
+        RestApiId:
+          Ref: 'ApiGatewayRestApi'
+
+functions:
+  app:
+    name: ${self:custom.functionPrefix}app
+    handler: build/src/index.handler
+    events:
+      - http:
+          path: /
+          method: ANY
+          cors: true
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors: true
