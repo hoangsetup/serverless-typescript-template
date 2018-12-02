@@ -1,10 +1,15 @@
 # Title of your project
 service: typescript-serverless-framework-template
 
+package:
+  exclude:
+    - .git/**
+
 provider:
   name: aws
   runtime: nodejs8.10
   region: eu-central-1
+  stage: ${opt:stage}
   # This is the S3 bucket where the Lambda source .zips will be saved to.
   deploymentBucket: example.lambdas.${opt:stage}
   # we can use these with process.env.ARG_NAME from js
@@ -16,8 +21,13 @@ provider:
 # referenced in other parts of the yml.
 custom:
   functionPrefix: example_lambdas_${opt:stage}_
+  webpack:
+    includeModules:
+      forceExclude:
+        - aws-sdk
 
 plugins:
+  - serverless-webpack
   - serverless-offline
 
 resources:
@@ -35,7 +45,7 @@ resources:
 functions:
   app:
     name: ${self:custom.functionPrefix}app
-    handler: build/src/index.handler
+    handler: index.handler
     events:
       - http:
           path: /

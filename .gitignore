@@ -34,7 +34,7 @@ jspm_packages
 .node_repl_history
 
 # No compiled javascripts
-build
+.build
 
 .serverless/
 
