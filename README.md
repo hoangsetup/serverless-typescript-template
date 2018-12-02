@@ -1,7 +1,3 @@
-[![Checkout Finland Oy](https://extranet.checkout.fi/static/img/checkout-logo.png)](http://www.checkout.fi/)
-
----
-
 # serverless-framework-typescript-project-template
 
 Template for quickly creating serverless Node.js/TypeScript functions with [Serverless Framework](https://serverless.com/) & [AWS Lambda](https://aws.amazon.com/lambda/).
