@@ -7,7 +7,7 @@
     "start": "./node_modules/.bin/serverless offline -P 9090 -s acp",
     "debug": "export SLS_DEBUG=* && node --inspect ./node_modules/.bin/serverless offline -s dev",
     "lint": "./node_modules/.bin/tslint src/**/*.ts",
-    "test": "./node_modules/.bin/nyc --exclude build --reporter html --clean --all --require ts-node/register --require reflect-metadata/Reflect --extension .ts -- ./node_modules/.bin/mocha --exit --timeout 5000",
+    "test": " ./node_modules/nyc/bin/nyc.js --reporter=lcovonly --reporter=html --clean --al --extension=.ts --require reflect-metadata/Reflect ./node_modules/mocha/bin/_mocha --require ts-node/register --exit --timeout 5000",
     "test:all": "npm test **/*.spec.ts"
   },
   "repository": {

@@ -48,6 +48,9 @@ config/**/*.map
 src/**/*.js
 src/**/*.map
 
+test/**/*.js
+test/**/*.map
+
 # env file
 .env
 .env.test
